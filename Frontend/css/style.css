@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+
+  background: linear-gradient(to right, #667eea, #764ba2);
+
+  min-height: 100vh;
+
+  padding: 40px;
+}
+
+.container {
+  max-width: 900px;
+
+  margin: auto;
+
+  background-color: white;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  text-align: center;
+
+  margin-bottom: 25px;
+
+  color: #333;
+}
+
+form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+  margin-bottom: 30px;
+}
+
+input {
+  padding: 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid #ccc;
+
+  font-size: 16px;
+}
+
+button {
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background-color: #667eea;
+
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #5a67d8;
+
+  transform: translateY(-2px);
+}
+
+#flashcardsContainer {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 20px;
+}
+
+.flashcard {
+  background-color: #f9f9f9;
+
+  padding: 20px;
+
+  border-radius: 15px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+  transition: 0.3s;
+}
+
+.flashcard:hover {
+  transform: translateY(-5px);
+}
+
+.flashcard h3 {
+  margin-bottom: 10px;
+
+  color: #333;
+}
+
+.flashcard p {
+  margin-bottom: 10px;
+
+  color: #666;
+}
+
+.flashcard small {
+  color: #999;
+}
+
+.card-buttons {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.delete-btn {
+  background-color: crimson;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
+
+.edit-btn {
+  background-color: #38a169;
+}
+
+.edit-btn:hover {
+  background-color: #2f855a;
+}
+
+#quizContainer {
+  margin-top: 30px;
+
+  padding: 25px;
+
+  background-color: #f9f9f9;
+
+  border-radius: 15px;
+}
+
+.quiz-btn {
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+}
