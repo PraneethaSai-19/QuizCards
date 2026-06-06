@@ -65,14 +65,27 @@ function showQuestion() {
     quizContainer.innerHTML = `
         <h2> Quiz finished!!!!</h2>
         <p>Your Score: ${score}/${flashcards.length}</p>
+        <button onclick="startQuiz()">
+        Restart Quiz
+        </button>
         `;
     return;
   }
   const currentCard = flashcards[currentQuestionIndex];
+  const progress = (currentQuestionIndex / flashcards.length) * 100;
   quizContainer.innerHTML = `
+    <h3>
+    Question
+    ${currentQuestionIndex + 1}
+    of
+    ${flashcards.length}
+    </h3>
+    <div class = "progress-bar">
+    <div class = "progress-fill" style="width:${progress}%"></div>
+    </div>
     <h2>
-    ${currentCard.question}
-    </h2>
+    ${currentCard.question}</h2>
+
     <input
     type = "text"
     id="userAnswer"
@@ -83,6 +96,8 @@ function showQuestion() {
     >
     Submit Answer
     </button>
+    <p class="score-text">
+    Score: ${score}</p>
     `;
 }
 function checkAnswer() {
