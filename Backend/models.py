@@ -10,3 +10,22 @@ class Flashcard(Base):
     question = Column(String(500))
     answer = Column(String(500))
     category= Column(String(100))
+    
+class User(Base):
+    __tablename__ = "users"
+    id = Column(
+        Integer,
+        primary_key = True,
+        index=True
+    )
+    username = Column(
+        String(100),
+        unique = True
+    )
+    email = Column(
+        String(100),
+        unique = True
+    )
+    password = Column(
+        String(255)
+    )
