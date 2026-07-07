@@ -12,6 +12,9 @@ class Flashcard(Base):
     answer = Column(String(500))
     category= Column(String(100))
     user_id = Column(Integer , ForeignKey("users.id"))
+    owner = relationship(
+        "User" , back_populates="flashcards"
+    )
     
 class User(Base):
     __tablename__ = "users"
@@ -30,4 +33,7 @@ class User(Base):
     )
     password = Column(
         String(255)
+    )
+    flashcards = relationship(
+        "Flashcard", back_populates="owner"
     )
