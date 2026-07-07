@@ -1,5 +1,6 @@
 #import datatypes from sqlalchemy to create table and import base class from database.py
-from sqlalchemy import Column , Integer, String
+from sqlalchemy import Column , Integer, String , ForeignKey
+from sqlalchemy.orm import relationship
 from database import Base
 
 class Flashcard(Base):
@@ -10,6 +11,7 @@ class Flashcard(Base):
     question = Column(String(500))
     answer = Column(String(500))
     category= Column(String(100))
+    user_id = Column(Integer , ForeignKey("users.id"))
     
 class User(Base):
     __tablename__ = "users"
