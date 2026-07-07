@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "../../fastapi-learning"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "QuizCards"
+  }
+}
