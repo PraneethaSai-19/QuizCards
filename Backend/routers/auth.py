@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from models import User
-from schemas import UserCreate, UserLogin
+from schemas import UserCreate
+from fastapi.security import OAuth2PasswordRequestForm
 
 from security import create_access_token
 from passlib.context import CryptContext
@@ -55,11 +56,11 @@ def signup(
 # Login
 @router.post("/login")
 def login(
-    user: UserLogin,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
 
-    existing_user = db.query(User).filter(User.email == user.email).first()
+    existing_user = db.query(User).filter(User.email == form_data.username).first()
 
     if not existing_user:
         raise HTTPException(
@@ -68,7 +69,7 @@ def login(
         )
 
     valid_password =  pwd_context.verify(
-            user.password,
+            form_data.password,
             existing_user.password
         )
 
