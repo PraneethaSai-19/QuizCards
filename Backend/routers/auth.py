@@ -5,6 +5,7 @@ from database import get_db
 from models import User
 from schemas import UserCreate, UserLogin
 
+from security import create_access_token
 from passlib.context import CryptContext
 
 from jose import jwt 
@@ -17,22 +18,7 @@ pwd_context = CryptContext(
     deprecated="auto"
 )
 
-SECRET_KEY = "quizcardssecretkey"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-def create_access_token(data: dict):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({
-        "exp" : expire
-    })
-    encoded_jwt = jwt.encode(
-        to_encode,
-        SECRET_KEY,
-        algorithm=ALGORITHM
-    )
-    return encoded_jwt
 
 # Signup
 @router.post("/signup")
