@@ -43,12 +43,13 @@ def get_flashcards(db: Session = Depends(get_db), current_user: User = Depends(g
 
 # Delete Flashcard
 @router.delete("/flashcards/{card_id}")
-def delete_flashcard(card_id: int, db: Session = Depends(get_db)):
+def delete_flashcard(card_id: int, db: Session = Depends(get_db) , current_user: User = Depends(get_current_user)):
 
     # db = SessionLocal()
 
     card = db.query(Flashcard).filter(
-        Flashcard.id == card_id
+        Flashcard.id == card_id,
+        Flashcard.user_id == current_user.id
     ).first()
 
     if not card:
@@ -69,13 +70,15 @@ def delete_flashcard(card_id: int, db: Session = Depends(get_db)):
 def update_flashcard(
     card_id: int,
     update_card: FlashcardUpdate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
 
     # db = SessionLocal()
 
     card = db.query(Flashcard).filter(
-        Flashcard.id == card_id
+        Flashcard.id == card_id,
+        Flashcard.user_id == current_user.id
     ).first()
 
     if not card:
