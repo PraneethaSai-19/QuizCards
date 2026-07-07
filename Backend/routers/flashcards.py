@@ -4,18 +4,22 @@ from models import Flashcard
 from schemas import FlashcardCreate, FlashcardUpdate
 from sqlalchemy.orm import Session
 
+from security import get_current_user
+from models import User
+
 router = APIRouter()
 
 # Create Flashcard
 @router.post("/flashcards")
-def create_flashcard(card: FlashcardCreate , db: Session = Depends(get_db)):
+def create_flashcard(card: FlashcardCreate , db: Session = Depends(get_db) , current_user: User = Depends(get_current_user)):
 
     # db = SessionLocal()
 
     new_card = Flashcard(
         question=card.question,
         answer=card.answer,
-        category=card.category
+        category=card.category,
+        user_id = current_user.id
     )
 
     db.add(new_card)
@@ -29,11 +33,11 @@ def create_flashcard(card: FlashcardCreate , db: Session = Depends(get_db)):
 
 # Get All Flashcards
 @router.get("/flashcards")
-def get_flashcards(db: Session = Depends(get_db)):
+def get_flashcards(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
 
     # db = SessionLocal()
 
-    cards = db.query(Flashcard).all()
+    cards = db.query(Flashcard).filter(Flashcard.user_id == current_user.id).all()
 
     return cards
 
