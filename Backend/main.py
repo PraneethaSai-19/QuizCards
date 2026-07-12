@@ -7,7 +7,10 @@ from routers.flashcards import router as flashcard_router
 
 from routers.auth import router as auth_router
 
+from routers.dashboard import router as dashboard_router
+
 app = FastAPI()
+app.include_router(dashboard_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

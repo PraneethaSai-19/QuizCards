@@ -15,3 +15,7 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     email: str
     password: str
+
+class QuizScoreCreate(BaseModel):
+    score : int
+    total_questions: int
