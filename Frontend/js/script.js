@@ -1,13 +1,18 @@
 const form = document.getElementById("flashcardForm");
 const flashcardsContainer = document.getElementById("flashcardsContainer");
 
+const token = localStorage.getItem("token");
 const quizContainer = document.getElementById("quizContainer");
 const startQuizBtn = document.getElementById("startQuizBtn");
 let currentQuestionIndex = 0;
 let score = 0;
 let flashcards = [];
 async function getFlashcards() {
-  const response = await fetch("http://127.0.0.1:8000/flashcards");
+  const response = await fetch("http://127.0.0.1:8000/flashcards", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   //await= wait until API response comes back
   // browser sends GET req to backend = GET /flashcards
   const data = await response.json();
@@ -40,6 +45,7 @@ form.addEventListener("submit", async (e) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         question,
@@ -69,7 +75,7 @@ async function showQuestion() {
         Restart Quiz
         </button>
         `;
-        await saveQuizScore();
+    await saveQuizScore();
     return;
   }
   const currentCard = flashcards[currentQuestionIndex];
@@ -115,21 +121,24 @@ function checkAnswer() {
 async function deleteFlashcard(id) {
   await fetch(`http://127.0.0.1:8000/flashcards/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   getFlashcards();
 }
 
-async function saveQuizScore(){
+async function saveQuizScore() {
   const token = localStorage.getItem("token");
-  await fetch("http://127.0.0.1:8000/quiz-score",{
+  await fetch("http://127.0.0.1:8000/quiz-score", {
     method: "POST",
-    headers:{
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body:JSON.stringify({
-      score:score,
-      total_questions:flashcards.length
-    })
+    body: JSON.stringify({
+      score: score,
+      total_questions: flashcards.length,
+    }),
   });
 }
