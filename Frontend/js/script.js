@@ -60,7 +60,7 @@ function startQuiz() {
   score = 0;
   showQuestion();
 }
-function showQuestion() {
+async function showQuestion() {
   if (currentQuestionIndex >= flashcards.length) {
     quizContainer.innerHTML = `
         <h2> Quiz finished!!!!</h2>
@@ -69,6 +69,7 @@ function showQuestion() {
         Restart Quiz
         </button>
         `;
+        await saveQuizScore();
     return;
   }
   const currentCard = flashcards[currentQuestionIndex];
@@ -116,4 +117,19 @@ async function deleteFlashcard(id) {
     method: "DELETE",
   });
   getFlashcards();
+}
+
+async function saveQuizScore(){
+  const token = localStorage.getItem("token");
+  await fetch("http://127.0.0.1:8000/quiz-score",{
+    method: "POST",
+    headers:{
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body:JSON.stringify({
+      score:score,
+      total_questions:flashcards.length
+    })
+  });
 }
